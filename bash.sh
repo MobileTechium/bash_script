@@ -25,7 +25,7 @@ MOBILETECHIUM_WELCOME_ANIMATION () {
 	}
 
 sleep 1
-MOBILETECHIUM_WELCOME_ANIMATION
+#MOBILETECHIUM_WELCOME_ANIMATION
 
 # MOBILETECHUIM Loading Animation
 MOBILETECHIUM_LOADING_ANIMATION () {
@@ -43,7 +43,7 @@ MOBILETECHIUM_LOADING_ANIMATION () {
 }
 
 sleep 1
-MOBILETECHIUM_LOADING_ANIMATION
+#MOBILETECHIUM_LOADING_ANIMATION
 
 # INTRODUCTION
 sleep 1
@@ -58,29 +58,35 @@ echo -e "Welcome to \e[1;36mMOBILETECHIUM\e[0m, ${user}."
 echo "I am Hemmars, it is nice to meet you."
 echo "----------"
 
+sleep 1
+#MOBILETECHIUM_LOADING_ANIMATION
+
 # MOBILETECHIUM_Proficiency
 MOBILETECHIUM_PROFICIENCY () {
-	until ((proficiency >= 1 && proficiency <= 4));
+	until ((proficiency >= 1 && proficiency <= 3));
 	do
 		echo ""
 		echo "Select your profiency below: "
-		echo "1) Beginner"
-		echo "2) Intermediate"
-		echo "3) Advanced"
-		echo "4) Expert"
+		echo "1 - Beginner"
+		echo "2 - Advanced"
+		echo "3 - Expert"
 		read -p "Enter the corresponding proficiency: " proficiency
+		
+		if (!((proficiency >= 1 && proficiency <= 3)));
+		then
+			echo -e "\e[31mInvalid input:\e[0m Please enter a number between 1 and 3"
+		fi
 	done
 	echo ""
+	echo "You have chosen the proficiency $proficiency."
 	case $proficiency in
-		1) echo "Beginner"
+		1) echo -e "\e[1;32mBeginner\e[0m"
 			;;
-		2) echo "Intermediate"
+		2) echo -e "\e[1;32mAdvanced\e[0m"
 			;;
-		3) echo "Advanced"
+		3) echo -e "\e[1;32mExpert\e[0m"
 			;;
-		4) echo "Expert"
-			;;
-		*) echo "Invalid input: Please enter a number between 1 and 4"
+		*) echo Invalid input: Please enter a number between 1 and 3
 			;;
 	esac
 }
