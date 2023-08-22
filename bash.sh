@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #Author: OluwaKorede Hemmars
-#Project: BAsh
+#Project: BAsh 
 
 #CLEAR THE TERMINAL
 sleep 1
@@ -85,6 +85,7 @@ MOBILETECHIUM_PROFICIENCY () {
 
 #MOBILETECHIUM Beginner Proficiency
 MOBILETECHIUM_BEGINNER_PROFICIENCY () {
+	
 	echo -e "\e[1;32mBeginner\e[0m"
 	sleep 2
 	echo ""
@@ -96,7 +97,7 @@ BEGINNER_INTRO=$(cat << EOF
 EOF
 )
 
-#BEGINNER INTRO ANIMATION
+#BEGINNER Intro Animation
 BEGINNER_INTRO_LENGTH="${#BEGINNER_INTRO}"
 text_speed=0.03
 for (( BIL="0"; BIL < BEGINNER_INTRO_LENGTH; BIL++ ));
@@ -112,7 +113,7 @@ What is Linux?
 EOF
 )
 
-#BEGINNER LINUX ANIMATION
+#BEGINNER Linux Animation
 BEGINNER_LINUX_LENGTH="${#BEGINNER_LINUX}"
 text_speed=0.03
 echo ""
@@ -130,7 +131,7 @@ What is Shell?
 EOF
 )
 
-#BEGINNER SHELL ANIMATION
+#BEGINNER Shell Animation
 BEGINNER_SHELL_LENGTH="${#BEGINNER_SHELL}"
 text_speed=0.03
 echo ""
@@ -164,7 +165,7 @@ The terminal will clear in 5 seconds!!!
 EOF
 )
 
-#BEGINNER COMMANDS ANIMATION
+#BEGINNER Commands Animation
 BEGINNER_COMMANDS_LENGTH="${#BEGINNER_COMMANDS}"
 text_speed=0.06
 sleep 5
@@ -180,10 +181,11 @@ sleep 5
 clear
 sleep 2
 
-QUIZ () {
+#MOBILETECHIUM Beginner Quiz
+MOBILETECHIUM_QUIZ_INTRO () {
 	local quiz="Q.U.I.Z"
 	local quiz_length=${#quiz}
-	local time_break=0.3
+	local time_break=0.2
 
 	for (( q = 0; q < quiz_length; q++))
 	do
@@ -191,20 +193,184 @@ QUIZ () {
 		sleep $time_break
 	done
 	echo ""
-
-	echo "Instructions: You are type A, B, C, or D to answer the quiz"
-	echo "Are you ready? "
-	read -p "Yes or No: " ready
 }
 
-QUIZ
+EFFECT () {
+	 local text="$1"
+	 local length=${#text}
+	 local time_break=0.05
+
+	 for (( i = 0; i < length; i++ )); do
+		 echo -n "${text:i:1}"
+		 sleep $time_break
+	 done
+	 echo ""
+}
+
+INSTRUCTIONS () {
+	EFFECT "Instructions: Type A, B, C, or D to answer the quiz"
+	EFFECT "Note: Any other keyword or phrase will be considered as a wrong answer"
+	EFFECT "Are you ready? "
+	while true;
+	do
+		read -p "Yes or No: " ready
+		if [[ "$ready" == "Yes" || "$ready" == "yes" ]]; then
+			break
+		elif [[ "$ready" == "No" || "$ready" == "no" ]]; then
+			echo "Alright, maybe next time!"
+			exit 0
+		else
+			echo "Please enter either 'Yes' or 'No'."
+		fi
+	done
+	echo ""
+}
+
+QUESTION_1 () {
+	local question="What is the piping symbol?"
+	local options=("A. \\ B. / C. | D. P")
+	local answer="C"
+
+	EFFECT "$question"
+	EFFECT "${options[@]}"
+	read -p "Answer: " user_answer
+
+	if [[ "$user_answer" == "$answer" ]];
+	then
+		echo "Correct!"
+		((score++))
+	else
+		echo "Incorrect. The correct answer is $answer."
+	fi
+	echo ""
+}
+
+QUESTION_2 () {
+	local question="Which command is used to concatenate a text file?"
+	local options=("A. less B. cat C. more D. touch")
+	local answer="B"
+
+	EFFECT "$question"
+	EFFECT "${options[@]}"
+	read -p "Answer: " user_answer
+
+	if [[ "$user_answer" == "$answer" ]];
+	then
+		echo "Correct!"
+		((score++))
+	else
+		echo "Incorrect. The correct answer is $answer."
+	fi
+	echo ""
+}
+
+QUESTION_3() {
+	local question="What does CLI mean?"
+	local options=("A. Command Line Interpreter B. Command Line Interface C. Code Line Interpreter D. Code Line Interface")
+	local answer="B"
+
+	EFFECT "$question"
+	EFFECT "${options[@]}"
+	read -p "Answer: " user_answer
+
+	if [[ "$user_answer" == "$answer" ]];
+	then
+		echo "Correct!"
+		((score++))
+	else
+		echo "Incorrect. The correct answer is $answer."
+	fi
+	echo ""
+}
+
+QUESTION_4 () {
+	local question="What is Linux?"
+	local options=("A. OS B. Kernel C. None of the above D. All of the above")
+	local answer="D"
+
+	EFFECT "$question"
+	EFFECT "${options[@]}"
+	read -p "Answer: " user_answer
+
+	if [[ "$user_answer" == "$answer" ]];
+	then
+		echo "Correct!"
+		((score++))
+	else
+		echo "Incorrect. The correct answer is $answer."
+	fi
+	echo ""
+}
+
+QUESTION_5 () {
+	local question="Which of the following is not a text editor on Linux?"
+	local options=("A. Visual Studio Code B. Nano C. Vim D. Sublime Text")
+	local answer="A"
+
+	EFFECT "$question"
+	EFFECT "${options[@]}"
+	read -p "Answer: " user_answer
+
+	if [[ "$user_answer" == "$answer" ]];
+	then
+		echo "Correct!"
+		((score++))
+	else
+		echo "Incorrect. The correct answer is $answer."
+	fi
+	echo ""
+}
+
+score=0
+
+#MOBILETECHIUM Quiz Intro
+MOBILETECHIUM_QUIZ_INTRO
+INSTRUCTIONS
+
+#QUIZ Affirmation
+if [[ "$ready" == "Yes" || "$ready" == "yes" ]];
+then
+
+#QUESTIONS
+QUESTION_1
+QUESTION_2
+QUESTION_3
+QUESTION_4
+QUESTION_5
+
+#FINAL_SCORE
+echo "Quiz completed! Your score is $score out of 5."
+else
+	echo "Alright, maybe next time!"
+fi
+
+
 }
 
 #MOBILETECHIUM Advanced Proficiency
 MOBILETECHIUM_ADVANCED_PROFICIENCY () {
 	echo -e "\e[1;32mAdvanced\e[0m"
 	sleep 2
-echo "Hmmm, an advanced."
+	echo "Hmmm, an advanced user."
+	
+	echo "To be honest, I don't have much to say to the advanced user, all I can say is that before running a script, always read the raw script"
+	echo "Now, let's play a game"
+
+	sleep 5
+
+	Objective: You are to find the infinite loop in the script, comment it.
+	nano bash.sh
+
+	while true;
+	do
+		echo "PLEASE, COMMENT ME!!!"
+	done
+
+#Quite easy, duh.
+#Do not leave yet, the game continues here. I promise, this is the last one. (Laughing Sarcastically)
+#This time, the game involves a positional argument, I hope you know what that is becasue I won't be telling you that.
+#Also, don't worry, I have taken measures to avoid cheating.
+#Hint: DO NOT BELIEVE WHAT YOU SEE.
 }
 
 #MOBILETECHIUM Expert Proficiency
@@ -232,19 +398,36 @@ MOBILETECHIUM_USER_PROFICIENCY_SELECTION () {
 			;;
 	esac
 
+
+#ABOUT
+ABOUT=$(cat << EOF
+ABOUT ME
+	Hello, I am Emmanuel Ogunjobi, the founder of MobileTechium. I love two things: playing around with computers and playing chess. At first glance, I thought these two things might not seem to have much in common, but after a while I got to find out that they actually connect in a really cool way and they are teaching me some unexpected things.
+	THANK YOU SO MUCH...
+	My Website: mobiletechium.tech
+EOF
+)
+
+#ABOUT_EFFECT
+MOBILETECHIUM_ABOUT_EFFECT () {
+	ABOUT_LENGTH="${#ABOUT}"
+	text_speed=0.07
+	
+	echo ""
+	echo "---------"
+	for (( MAE = 0; MAE < ABOUT_LENGTH; MAE++ ));
+	do
+		echo -en "${ABOUT:MAE:1}"
+		sleep $text_speed
+	done
+	echo ""
+	echo "----------"
+	echo ""
+
+}
+MOBILETECHIUM_ABOUT_EFFECT
 }
 
 sleep 1
 MOBILETECHIUM_USER_PROFICIENCY_SELECTION
 
-
-
-
-
-
-
-
-# ABOUT
-# ABOUT: Author
-# echo "ABOUT Author"
-# echo -e "\tMy name is OluwaKorede Hemmars, ..."
