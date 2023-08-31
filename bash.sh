@@ -37,7 +37,7 @@ MOBILETECHIUM_LOADING_ANIMATION () {
 			sleep 0.18
 			echo -n "."
 		done
-		sleep 0.2
+		sleep 0.15
 		echo -en "\r          \r"
 	done
 }
@@ -68,12 +68,13 @@ sleep 1
 echo ""
 
 EFFECT "Welcome to MOBILETECHIUM."
-EFFECT "My name is Hemmars, it's nice to meet you, ${user}."
+EFFECT "My name is Hemmars."
+EFFECT "It is an honor to meet you, ${user}."
 EFFECT "----------"
 }
 
 INTRODUCTION
-sleep 1
+read -p "Press ENTER to continue"
 MOBILETECHIUM_LOADING_ANIMATION
 
 #MOBILETECHIUM Proficiency
@@ -185,7 +186,6 @@ EOF
 BEGINNER_COMMANDS_LENGTH="${#BEGINNER_COMMANDS}"
 text_speed=0.02
 echo ""
-echo ""
 read -p "Press ENTER to continue"
 clear
 sleep 1
@@ -195,7 +195,7 @@ do
 	sleep $text_speed
 done
 echo ""
-sleep 5
+read -p "Press ENTER to continue"
 clear
 sleep 2
 
