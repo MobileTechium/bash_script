@@ -14,7 +14,7 @@ MOBILETECHIUM_WELCOME_ANIMATION () {
 	local ANSI_bold="\e[1m"
 	local ANSI_cyan="\e[1;36m"
 	local break_ANSI="\e[0m"
-	local time_break="0.3"
+	local time_break="0.1"
 
 	for (( m = 0; m < name_length; m++ ));
 	do
@@ -34,10 +34,10 @@ MOBILETECHIUM_LOADING_ANIMATION () {
 		echo -n "Loading"
 		for _ in {1..3};
 		do
-			sleep 0.5
+			sleep 0.18
 			echo -n "."
 		done
-		sleep 0.5
+		sleep 0.2
 		echo -en "\r          \r"
 	done
 }
@@ -46,23 +46,39 @@ sleep 1
 MOBILETECHIUM_LOADING_ANIMATION
 
 #INTRODUCTION
+INTRODUCTION () {
+EFFECT () {
+	local text="$1"
+	local length=${#text}
+	local time_break=0.05
+
+	for (( i = 0; i < length; i++ )); do
+		echo -n "${text:i:1}"
+		sleep $time_break
+	done
+	echo ""
+}
+
 sleep 1
-echo "----------"
-echo "Hello User, what is your name?"
+EFFECT "----------"
+EFFECT "Hello User, what is your name? "
 read -p "Enter your name: " user
 
 sleep 1
 echo ""
 
-echo -e "Welcome to \e[1;36mMOBILETECHIUM\e[0m."
-echo "My name is Hemmars, it's nice to meet you, ${user}."
-echo "----------"
+EFFECT "Welcome to MOBILETECHIUM."
+EFFECT "My name is Hemmars, it's nice to meet you, ${user}."
+EFFECT "----------"
+}
 
+INTRODUCTION
 sleep 1
 MOBILETECHIUM_LOADING_ANIMATION
 
 #MOBILETECHIUM Proficiency
 MOBILETECHIUM_PROFICIENCY () {
+
 	proficiency="0"
 	until ((proficiency >= 1 && proficiency <= 3));
 	do
@@ -89,7 +105,7 @@ MOBILETECHIUM_BEGINNER_PROFICIENCY () {
 	echo -e "\e[1;32mBeginner\e[0m"
 	sleep 2
 	echo ""
-	echo -e "\e[0;44mWELCOME TO LINUX!!!\e[0m"
+	echo -e "\e[0;44mWELCOME TO LINUX\e[0m"
 	sleep 2
 
 BEGINNER_INTRO=$(cat << EOF
@@ -99,7 +115,7 @@ EOF
 
 #BEGINNER Intro Animation
 BEGINNER_INTRO_LENGTH="${#BEGINNER_INTRO}"
-text_speed=0.03
+text_speed=0.02
 for (( BIL="0"; BIL < BEGINNER_INTRO_LENGTH; BIL++ ));
 do
 	echo -en "${BEGINNER_INTRO:BIL:1}"
@@ -115,7 +131,7 @@ EOF
 
 #BEGINNER Linux Animation
 BEGINNER_LINUX_LENGTH="${#BEGINNER_LINUX}"
-text_speed=0.03
+text_speed=0.02
 echo ""
 sleep 2
 for (( BLL="0"; BLL < BEGINNER_LINUX_LENGTH; BLL++ ));
@@ -133,7 +149,7 @@ EOF
 
 #BEGINNER Shell Animation
 BEGINNER_SHELL_LENGTH="${#BEGINNER_SHELL}"
-text_speed=0.03
+text_speed=0.02
 echo ""
 sleep 2
 for (( BSL="0"; BSL < BEGINNER_SHELL_LENGTH; BSL++ ));
@@ -167,8 +183,10 @@ EOF
 
 #BEGINNER Commands Animation
 BEGINNER_COMMANDS_LENGTH="${#BEGINNER_COMMANDS}"
-text_speed=0.06
-sleep 5
+text_speed=0.02
+echo ""
+echo ""
+read -p "Press ENTER to continue"
 clear
 sleep 1
 for (( BCL="0"; BCL < BEGINNER_COMMANDS_LENGTH; BCL++ ));
@@ -185,7 +203,7 @@ sleep 2
 MOBILETECHIUM_QUIZ_INTRO () {
 	local quiz="Q.U.I.Z"
 	local quiz_length=${#quiz}
-	local time_break=0.2
+	local time_break=0.1
 
 	for (( q = 0; q < quiz_length; q++))
 	do
@@ -344,33 +362,78 @@ else
 	echo "Alright, maybe next time!"
 fi
 
-
 }
 
 #MOBILETECHIUM Advanced Proficiency
 MOBILETECHIUM_ADVANCED_PROFICIENCY () {
+	EFFECT () {
+		local text="$1"
+		local length=${#text}
+		local time_break=0.05
+
+		for (( i = 0; i < length; i++ ));
+		do
+			echo -n "${text:i:1}"
+			sleep $time_break
+		done
+		echo ""
+	}
+
 	echo -e "\e[1;32mAdvanced\e[0m"
 	sleep 2
-	echo "Hmmm, an advanced user."
-	
-	echo "To be honest, I don't have much to say to the advanced user, all I can say is that before running a script, always read the raw script"
-	echo "Now, let's play a game"
+	echo "WELCOME"
 
-	sleep 5
 
-	Objective: You are to find the infinite loop in the script, comment it.
-	nano bash.sh
+#ADVANCED Intro
+ADVANCED_INTRO=$(cat << EOF
+	To be honest, I don't have much to say to you as an advanced user, but a few tips would actually do. Here are a few:
+1. Before running a script, always read it before running it.
+2. Master the command line interface.
+3. Start working on your own shell project, start from somewhere.
+4. Master at least three text editor but I do advice that you have a preferenced text editor, don't let people decide for you.
+5. Learn virtualization.
+6. Learn files permissions.
+7. Learn git.
 
-	while true;
-	do
-		echo "PLEASE, COMMENT ME!!!"
-	done
+Obviously, there are more but I recommend you improve yourself to become better at using linux.
+EOF
+)
 
-#Quite easy, duh.
+ADVANCED_INTRO_LENGTH="${#ADVANCED_INTRO}"
+text_speed=0.05
+echo ""
+sleep 2
+for (( AIL="0"; AIL < ADVANCED_INTRO_LENGTH; AIL++ ));
+do
+	echo -en "${ADVANCED_INTRO:AIL:1}"
+	sleep $text_speed
+done
+echo ""
+
+sleep 1
+EFFECT "Now, let's play a game."
+sleep 1
+clear
+sleep 1
+
+EFFECT "Objective: You are to find the infinite loop in the script, comment it."
+sleep 2
+nano bash.sh
+
+while true;
+do
+	echo "PLEASE, COMMENT ME!!!"
+done
+
+#Duh, that was quite easy!!!
 #Do not leave yet, the game continues here. I promise, this is the last one. (Laughing Sarcastically)
-#This time, the game involves a positional argument, I hope you know what that is becasue I won't be telling you that.
+
 #Also, don't worry, I have taken measures to avoid cheating.
-#Hint: DO NOT BELIEVE WHAT YOU SEE.
+#Before I proceed, here are what you will do:
+#Task 1: Comment the loop above.
+#Task 2: Now, comment the variable named "ADVANCED_INTRO_LENGTH".
+#
+
 }
 
 #MOBILETECHIUM Expert Proficiency
